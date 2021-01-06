@@ -18,7 +18,8 @@
 simple Host
 {
     parameters:
-        string address;
+        int nodeIndex;
+        string IP;
         @display("i=device/pc2");
 
     gates:
@@ -32,6 +33,7 @@ simple Host
 simple Switch
 {
     parameters:
+        int nodeIndex;
         @display("i=device/switch");
 
     gates:
@@ -42,10 +44,11 @@ simple Switch
 //
 // TODO documentation
 //
-simple router
+simple Router
 {
     parameters:
-        @display("i=abstract/router");
+        int nodeIndex;
+        @display("i=old/srouter");
     gates:
         output out[];
         input in[];
@@ -59,92 +62,122 @@ network Network
     @display("bgb=876,543");
     submodules:
         s1: Switch {
-            @display("p=120,165");
+            parameters:
+                nodeIndex = 0;
+                @display("p=120,165");
         }
         s2: Switch {
-            @display("p=647,160");
+            parameters:
+                nodeIndex = 1;
+                @display("p=647,160");
         }
         s3: Switch {
-            @display("p=590,310");
+            parameters:
+                nodeIndex = 2;
+                @display("p=590,310");
         }
         s4: Switch {
-            @display("p=510,383");
+            parameters:
+                nodeIndex = 3;
+                @display("p=510,383");
         }
         s5: Switch {
-            @display("p=647,400");
+            parameters:
+                nodeIndex = 4;
+                @display("p=647,400");
         }
 
-
-        r1: router {
-            @display("p=215,182");
+        r1: Router {
+            parameters:
+                nodeIndex = 5;
+                @display("p=215,182");
         }
-        r2: router {
-            @display("p=334,112");
+        r2: Router {
+            parameters:
+                nodeIndex = 6;
+                @display("p=334,112");
         }
-        r3: router {
-            @display("p=334,259");
+        r3: Router {
+            parameters:
+                nodeIndex = 7;
+                @display("p=334,259");
         }
-        r4: router {
-            @display("p=440,194");
+        r4: Router {
+            parameters:
+                nodeIndex = 8;
+                @display("p=440,194");
         }
-        r5: router {
-            @display("p=583,224");
+        r5: Router {
+            parameters:
+                nodeIndex = 9;
+                @display("p=583,224");
         }
 
 
         h1: Host {
             parameters:
-                address = "10.0.0.1";
+                nodeIndex = 10;
+                IP = "10.0.0.1";
                 @display("p=48,112");
         }
         h2: Host {
             parameters:
-                address = "10.0.0.2";
+                nodeIndex = 11;
+                IP = "10.0.0.2";
                 @display("p=54,224");
         }
         h3: Host {
             parameters:
-                address = "10.0.1.1";
+                nodeIndex = 12;
+                IP = "10.0.1.1";
                 @display("p=240,57");
         }
         h4: Host {
             parameters:
-                address = "10.0.2.1";
+                nodeIndex = 13;
+                IP = "10.0.2.1";
                 @display("p=223,337");
         }
         h5: Host {
             parameters:
-                address = "10.0.3.1";
+                nodeIndex = 14;
+                IP = "10.0.3.1";
                 @display("p=615,77");
         }
         h6: Host {
             parameters:
-                address = "10.0.3.2";
+                nodeIndex = 15;
+                IP = "10.0.3.2";
                 @display("p=747,140");
         }
         h7: Host {
             parameters:
-                address = "10.0.4.1";
+                nodeIndex = 16;
+                IP = "10.0.4.1";
                 @display("p=407,382");
         }
         h8: Host {
             parameters:
-                address = "10.0.4.2";
+                nodeIndex = 17;
+                IP = "10.0.4.2";
                 @display("p=439,478");
         }
         h9: Host {
             parameters:
-                address = "10.0.4.3";
+                nodeIndex = 18;
+                IP = "10.0.4.3";
                 @display("p=599,478");
         }
         h10: Host {
             parameters:
-                address = "10.0.4.4";
+                nodeIndex = 19;
+                IP = "10.0.4.4";
                 @display("p=747,401");
         }
         h11: Host {
             parameters:
-                address = "10.0.5.1";
+                nodeIndex = 20;
+                IP = "10.0.5.1";
                 @display("p=452,54");
         }
 
