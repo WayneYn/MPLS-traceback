@@ -20,6 +20,7 @@ simple Host
     parameters:
         int nodeIndex;
         string IP;
+        volatile double sendIaTime @unit(s) = default(exponential(1s));
         @display("i=device/pc2");
 
     gates:
@@ -112,7 +113,6 @@ network Network
                 nodeIndex = 9;
                 @display("p=583,224");
         }
-
 
         h1: Host {
             parameters:
