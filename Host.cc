@@ -41,7 +41,6 @@ void Host::initialize() {
     cPar *ipPar = &par("IP");
     ip = ipPar->str();
     ip = ip.substr(1, ip.size() - 2);
-    EV << ip <<endl;
 
     Singleton& instance = Singleton::get_instance();
     instance.setIndex(ip, nodeIndex);

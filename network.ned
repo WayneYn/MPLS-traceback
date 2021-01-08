@@ -50,6 +50,7 @@ simple Router
     parameters:
         int nodeIndex;
         @display("i=old/srouter");
+
     gates:
         output out[];
         input in[];
@@ -62,56 +63,56 @@ network Network
 {
     @display("bgb=876,543");
     submodules:
-        s1: Switch {
-            parameters:
-                nodeIndex = 0;
-                @display("p=120,165");
-        }
-        s2: Switch {
-            parameters:
-                nodeIndex = 1;
-                @display("p=647,160");
-        }
-        s3: Switch {
-            parameters:
-                nodeIndex = 2;
-                @display("p=590,310");
-        }
-        s4: Switch {
-            parameters:
-                nodeIndex = 3;
-                @display("p=510,383");
-        }
-        s5: Switch {
-            parameters:
-                nodeIndex = 4;
-                @display("p=647,400");
-        }
-
         r1: Router {
             parameters:
-                nodeIndex = 5;
+                nodeIndex = 0;
                 @display("p=215,182");
         }
         r2: Router {
             parameters:
-                nodeIndex = 6;
+                nodeIndex = 1;
                 @display("p=334,112");
         }
         r3: Router {
             parameters:
-                nodeIndex = 7;
+                nodeIndex = 2;
                 @display("p=334,259");
         }
         r4: Router {
             parameters:
-                nodeIndex = 8;
+                nodeIndex = 3;
                 @display("p=440,194");
         }
         r5: Router {
             parameters:
-                nodeIndex = 9;
+                nodeIndex = 4;
                 @display("p=583,224");
+        }
+        
+        s1: Switch {
+            parameters:
+                nodeIndex = 5;
+                @display("p=120,165");
+        }
+        s2: Switch {
+            parameters:
+                nodeIndex = 6;
+                @display("p=647,160");
+        }
+        s3: Switch {
+            parameters:
+                nodeIndex = 7;
+                @display("p=590,310");
+        }
+        s4: Switch {
+            parameters:
+                nodeIndex = 8;
+                @display("p=510,383");
+        }
+        s5: Switch {
+            parameters:
+                nodeIndex = 9;
+                @display("p=647,400");
         }
 
         h1: Host {
@@ -184,58 +185,67 @@ network Network
 
     connections:
 
-        r1.out++ --> s1.in++;
-        r1.out++ --> r2.in++;
-        r1.out++ --> r3.in++;
-
-        r2.out++ --> h3.in++;
-        r2.out++ --> r1.in++;
-        r2.out++ --> r4.in++;
-
-        r3.out++ --> h4.in++;
-        r3.out++ --> r1.in++;
-        r3.out++ --> r4.in++;
-
-        r4.out++ --> h11.in++;
-        r4.out++ --> r2.in++;
-        r4.out++ --> r3.in++;
-        r4.out++ --> r5.in++;
-
-        r5.out++ --> r4.in++;
-        r5.out++ --> s2.in++;
-        r5.out++ --> s3.in++;
-
-        s1.out++ --> h1.in++;
-        s1.out++ --> h2.in++;
-        s1.out++ --> r1.in++;
-
-        s2.out++ --> h5.in++;
-        s2.out++ --> h6.in++;
-        s2.out++ --> r5.in++;
-
-        s3.out++ --> s4.in++;
-        s3.out++ --> s5.in++;
-        s3.out++ --> r5.in++;
-
-        s4.out++ --> h7.in++;
-        s4.out++ --> h8.in++;
-        s4.out++ --> s3.in++;
-
-        s5.out++ --> h9.in++;
-        s5.out++ --> h10.in++;
-        s5.out++ --> s3.in++;
-
         h1.out++ --> s1.in++;
+        s1.out++ --> h1.in++;
+        
+        s1.out++ --> h2.in++;
         h2.out++ --> s1.in++;
+        
+        s1.out++ --> r1.in++;
+        r1.out++ --> s1.in++;
+        
+        r1.out++ --> r2.in++;
+        r2.out++ --> r1.in++;
+        
+        r2.out++ --> r4.in++;
+        r4.out++ --> r2.in++;
+        
+        r1.out++ --> r3.in++;
+        r3.out++ --> r1.in++;
+        
+        r3.out++ --> r4.in++;
+        r4.out++ --> r3.in++;
+        
+        r4.out++ --> r5.in++;
+        r5.out++ --> r4.in++;
+        
+        r2.out++ --> h3.in++;
         h3.out++ --> r2.in++;
+        
+        r3.out++ --> h4.in++;
         h4.out++ --> r3.in++;
-        h5.out++ --> s2.in++;
-        h6.out++ --> s2.in++;
-        h7.out++ --> s4.in++;
-        h8.out++ --> s4.in++;
-        h9.out++ --> s5.in++;
-        h10.out++ --> s5.in++;
+        
+        r4.out++ --> h11.in++;
         h11.out++ --> r4.in++;
-
+        
+        r5.out++ --> s2.in++;
+        s2.out++ --> r5.in++;
+        
+        s2.out++ --> h5.in++;
+        h5.out++ --> s2.in++;
+        
+        s2.out++ --> h6.in++;
+        h6.out++ --> s2.in++;
+        
+        r5.out++ --> s3.in++;
+        s3.out++ --> r5.in++;
+        
+        s3.out++ --> s4.in++;
+        s4.out++ --> s3.in++;
+        
+        s3.out++ --> s5.in++;
+        s5.out++ --> s3.in++;
+        
+        s4.out++ --> h7.in++;
+        h7.out++ --> s4.in++;
+        
+        s4.out++ --> h8.in++;
+        h8.out++ --> s4.in++;
+        
+        s5.out++ --> h9.in++;
+        h9.out++ --> s5.in++;
+        
+        h10.out++ --> s5.in++;
+        s5.out++ --> h10.in++;
 }
 

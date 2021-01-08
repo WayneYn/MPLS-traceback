@@ -1,5 +1,6 @@
 
 #include <omnetpp.h>
+#include <typeinfo>
 #include "TraceUtils.cc"
 #include "Packet_m.h"
 
@@ -34,16 +35,20 @@ void Router::initialize() {
 
     // 动态路由生成
     for (int i = 0; i < topo->getNumNodes(); i++) {
-        // 目标节点与当前节点为同一节点 跳过
-        if (topo->getNode(i) == thisNode)
-            continue;  // skip ourselves
+        cTopology::Node* node = topo->getNode(i);
+        EV <<"target node type: " << node->getModule()->getClassName() << endl;
+        if (strncmp("Host", node->getModule()->getClassName(), 5)) {
+            EV <<"target node is not host, skip" << endl;
+            continue;
+        }
 
-        topo->calculateUnweightedSingleShortestPathsTo(topo->getNode(i));
+        topo->calculateUnweightedSingleShortestPathsTo(node);
         if (thisNode->getNumPaths() == 0)
             continue;  // not connected
 
         //得到最短路径并记录在路由表中
         cGate *parentModuleGate = thisNode->getPath(0)->getLocalGate();
+        EV << thisNode->getPath(0)->getRemoteNode()->getModule()->getName() << endl;
         int gateIndex = parentModuleGate->getIndex();
         rtable[i] = gateIndex;
         EV << "  towards address " << i << " gateIndex is " << gateIndex << endl;
@@ -52,12 +57,15 @@ void Router::initialize() {
 }
 
 void Router::handleMessage(cMessage *msg) {
+    EV << "arrive gate id: " << msg->getArrivalGate()->getIndex() << endl;
+
     Packet *pk = check_and_cast<Packet *>(msg);
     string destAddr = pk->getDestAddr();
     int index = Singleton::get_instance().getIndex(destAddr);
 
     RoutingTable::iterator it = rtable.find(index);
     int outGateIndex = (*it).second;
+
     send(pk, "out", outGateIndex);
 }
 
