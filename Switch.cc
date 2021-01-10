@@ -55,7 +55,7 @@ void Switch::initialize() {
 }
 
 void Switch::handleMessage(cMessage *msg) {
-    EV << "arrive gate id: " << msg->getArrivalGate()->getIndex() << endl;
+    //EV << "arrive gate id: " << msg->getArrivalGate()->getIndex() << endl;
 
     Packet *pk = check_and_cast<Packet *>(msg);
     string destAddr = pk->getDestAddr();
